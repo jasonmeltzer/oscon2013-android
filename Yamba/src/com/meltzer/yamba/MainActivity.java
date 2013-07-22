@@ -1,8 +1,10 @@
 package com.meltzer.yamba;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 public class MainActivity extends Activity {
 
@@ -19,4 +21,18 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_update:
+				startActivity(new Intent(this, StatusActivity.class));
+				return true;
+			case R.id.action_settings:
+				// TODO
+				return true;
+			default:
+				return false;
+		}
+		
+	}
 }
