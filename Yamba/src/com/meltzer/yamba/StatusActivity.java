@@ -1,6 +1,7 @@
 package com.meltzer.yamba;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,8 +42,18 @@ public class StatusActivity extends Activity {
 		});
     }
 
-    private static class PostTask extends AsyncTask<String, Void, String> {
+    private class PostTask extends AsyncTask<String, Void, String> {
 
+    	private ProgressDialog dialog;
+    	
+    	/**
+    	 * What do we want to show the user before the tweet posts?
+    	 */
+    	@Override
+    	protected void onPreExecute() {
+    		dialog = ProgressDialog.show(StatusActivity.this, "Posting", "Please wait...");
+    	}
+    	
 		@Override
 		protected String doInBackground(String... params) {
 			YambaClient yamba = new YambaClient("student", "password");
@@ -54,6 +65,11 @@ public class StatusActivity extends Activity {
 				return "Failed to post";
 			}
 			
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			dialog.dismiss();
 		}
     	
     }
