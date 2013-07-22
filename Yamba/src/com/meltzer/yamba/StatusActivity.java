@@ -2,6 +2,7 @@ package com.meltzer.yamba;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,8 +27,8 @@ public class StatusActivity extends Activity {
 			 * What we want to do when the "update" button is clicked
 			 */
 			public void onClick(View view) {
-				Log.d("StatusActivity", "onClicked!");
-				
+				String status = editStatus.getText().toString();
+				Log.d("StatusActivity", "onClicked with status: " + status);
 			} 
 		});
     }
