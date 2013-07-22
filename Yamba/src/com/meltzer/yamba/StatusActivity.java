@@ -1,10 +1,13 @@
 package com.meltzer.yamba;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
+import android.os.Bundle;
+import android.widget.Button;
 
 public class StatusActivity extends Activity {
+	
+	private Button buttonUpdate;
+	private EditText editStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
