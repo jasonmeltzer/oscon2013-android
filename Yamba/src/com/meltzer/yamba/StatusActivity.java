@@ -1,6 +1,7 @@
 package com.meltzer.yamba;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,15 +35,26 @@ public class StatusActivity extends Activity {
 				String status = editStatus.getText().toString();
 				Log.d(TAG, "onClicked with status: " + status);
 				
-				YambaClient yamba = new YambaClient("student", "password");
-				try {
-					yamba.postStatus(status);
-				} catch (YambaClientException e) {
-					Log.e(TAG, "Failed to post", e);
-				}
+				// needs to do the actual cloud communication outside of the UI thread - could take a while
+				new PostTask().execute(status);
 			} 
 		});
     }
 
+    private static class PostTask extends AsyncTask<String, Void, String> {
 
+		@Override
+		protected String doInBackground(String... params) {
+			YambaClient yamba = new YambaClient("student", "password");
+			try {
+				yamba.postStatus(params[0]);
+				return "Successfully posted!";
+			} catch (YambaClientException e) {
+				Log.e(TAG, "Failed to post", e);
+				return "Failed to post";
+			}
+			
+		}
+    	
+    }
 }
